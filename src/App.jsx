@@ -45,6 +45,17 @@ function App() {
         }
     };
 
+    // Function to clear all squares by making a PUT request to the API
+    const clearAllSquares = async () => {
+        try {
+            const res = await fetch(API_URL, { method: "PUT" });
+            if (!res.ok) throw new Error();
+            fetchSquares();
+        } catch {
+            setError("Failed to clear squares.");
+        }
+    };
+
     useEffect(() => {
         fetchSquares();
     }, [fetchSquares]);
@@ -54,6 +65,7 @@ function App() {
             <ControlPanel
                 onAdd={addSquare}
                 onDelete={deleteSquare}
+                onClear={clearAllSquares}
             />
             <SquareGrid squares={squares} />
             {error && <div className="error">{error}</div>}
