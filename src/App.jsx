@@ -3,6 +3,7 @@ import './App.css'
 import SquareGrid from "./components/SquareGrid";
 import ControlPanel from "./components/ControlPanel";
 import ErrorMessage from "./components/ErrorMessage";
+import Header from "./components/Header";
 
 // API URL for fetching squares
 const API_URL = "https://localhost:7142/api/Square";
@@ -62,7 +63,8 @@ function App() {
     }, [fetchSquares]);
 
     return (
-        <div>
+        <div className="page-content">
+            <Header />
             <ControlPanel
                 onAdd={addSquare}
                 onDelete={deleteSquare}

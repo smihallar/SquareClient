@@ -2,11 +2,11 @@
 function ControlPanel({ onAdd, onDelete, onClear }) {
     return (
         <div>
-            <button onClick={onAdd}>Add Square</button>
-            <button onClick={onDelete} style={{ marginLeft: '8px' }}>
+            <button onClick={onAdd} className="btn-add">Add Square</button>
+            <button onClick={onDelete} className="btn-delete" style={{ marginLeft: '12px' }}>
                 Delete Square
             </button>
-            <button onClick={onClear} style={{ marginLeft: '8px' }}>
+            <button onClick={onClear} className="btn-clear" style={{ marginLeft: '12px' }}>
                 Clear All Squares
             </button>
         </div>
