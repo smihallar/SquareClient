@@ -40,7 +40,7 @@ function App() {
     const deleteSquare = async () => {
         try {
             const res = await fetch(API_URL, { method: "DELETE" });
-            if (!res.ok) throw new Error(`Error deleting square: ${res.status}`);
+            if (!res.ok) throw new Error(`No squares to delete!`);
             fetchSquares();
         } catch(err) {
             setError(err.message);
