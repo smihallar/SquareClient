@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState, useCallback, useEffect } from "react";
 import './App.css'
+import SquareGrid from "./components/SquareGrid";
+
+// API URL for fetching squares
+const API_URL = "https://localhost:7142/api/Square";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [squares, setSquares] = useState([]); // The squares state holds the array of square objects
+    const [error, setError] = useState(null); // The error state holds any error messages
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const fetchSquares = useCallback(async () => {
+        try {
+            setError(null);
+            const res = await fetch(API_URL);
+            if (!res.ok) throw new Error(`Error fetching squares: ${res.status}`);
+            const data = await res.json();
+            setSquares(data || []);
+        } catch {
+            setError("Failed to fetch squares.");
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchSquares();
+    }, [fetchSquares]);
+
+    return (
+        <div>
+            <SquareGrid squares={squares} />
+            {error && <div className="error">{error}</div>}
+        </div>
+    )
 }
 
 export default App

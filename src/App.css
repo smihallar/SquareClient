@@ -40,3 +40,22 @@
 .read-the-docs {
   color: #888;
 }
+
+.title {
+    font-weight: bold;
+}
+
+.square-grid {
+    display: grid;
+    gap: 4px;
+}
+
+.square {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 1px solid black;
+}
