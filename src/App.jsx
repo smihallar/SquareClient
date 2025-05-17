@@ -34,6 +34,17 @@ function App() {
         }
     };
 
+    // Function to delete square by making a DELETE request to the API
+    const deleteSquare = async () => {
+        try {
+            const res = await fetch(API_URL, { method: "DELETE" });
+            if (!res.ok) throw new Error(`Error deleting square: ${res.status}`);
+            fetchSquares();
+        } catch(err) {
+            setError(err.message);
+        }
+    };
+
     useEffect(() => {
         fetchSquares();
     }, [fetchSquares]);
@@ -42,6 +53,7 @@ function App() {
         <div>
             <ControlPanel
                 onAdd={addSquare}
+                onDelete={deleteSquare}
             />
             <SquareGrid squares={squares} />
             {error && <div className="error">{error}</div>}
