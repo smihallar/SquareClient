@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import './App.css'
 import SquareGrid from "./components/SquareGrid";
 import ControlPanel from "./components/ControlPanel";
+import ErrorMessage from "./components/ErrorMessage";
 
 // API URL for fetching squares
 const API_URL = "https://localhost:7142/api/Square";
@@ -49,10 +50,10 @@ function App() {
     const clearAllSquares = async () => {
         try {
             const res = await fetch(API_URL, { method: "PUT" });
-            if (!res.ok) throw new Error();
+            if (!res.ok) throw new Error(`Error deleting square: ${res.status}`);
             fetchSquares();
-        } catch {
-            setError("Failed to clear squares.");
+        } catch(err) {
+            setError(err.message);
         }
     };
 
@@ -67,8 +68,8 @@ function App() {
                 onDelete={deleteSquare}
                 onClear={clearAllSquares}
             />
+            <ErrorMessage message={error} />
             <SquareGrid squares={squares} />
-            {error && <div className="error">{error}</div>}
         </div>
     )
 }
